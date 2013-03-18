@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 被织入的组件 -->
+	<bean id="userService" class="com.tz.spring.service.UserServiceImpl"></bean>
+	<bean id="orderService" class="com.tz.spring.service.OrderServiceImpl"></bean>
+	<bean id="bookService" class="com.tz.spring.service.BookServiceImpl"></bean>
+
+	<!-- advice -->
+	<bean id="logAdvice" class="com.tz.spring.aop.LogAdvice"></bean>
+	<bean id="myExceptionAdvice" class="com.tz.spring.aop.MyExceptionAdvice"></bean>
+	<bean id="myReturnAdvice" class="com.tz.spring.aop.MyReturnAdvice"></bean>
+	<bean id="myAroundAdvice" class="com.tz.spring.aop.MyAroundAdvice"></bean>
+         
+    <!-- 配置 aop -->
+    <aop:config>
+    	<!-- 定义一个切面 -->
+    	<aop:aspect ref="myAroundAdvice">
+			<aop:around method="handle" 
+			            pointcut="execution(* com.tz.spring.service.*ServiceImpl.*(..))"/> 
+		</aop:aspect>
+
+        <!--
+		<aop:aspect ref="logAdvice">
+			<aop:before method="log" 
+					   pointcut="execution(* com.tz.spring.service.*ServiceImpl.*(..))"/>
+
+			<aop:after method="log" 
+					   pointcut="execution(void com.tz.spring.service.*ServiceImpl.save(..))"/>
+		</aop:aspect>-->
+		
+		<!-- 
+		<aop:aspect ref="myExceptionAdvice">
+			<aop:after-throwing method="handle" 
+			   		   pointcut="execution(* com.tz.spring.service.*ServiceImpl.*(..))" 
+			   		   throwing="e"/>
+		</aop:aspect> 
+		
+		<aop:aspect ref="myReturnAdvice">
+			<aop:after-returning method="handle" 
+			           pointcut="execution(* com.tz.spring.service.*ServiceImpl.*(..))"
+			           returning="result"/> 
+		</aop:aspect> -->
+		
+    </aop:config>
+           
+</beans>

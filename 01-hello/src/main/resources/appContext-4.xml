@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd"
+           default-autowire="byName">
+
+    <!--自定义对象-->
+    <bean id="user" class="com.tz.spring.User">
+        <property name="name" value="jack"/>
+        <property name="age" value="25"/>
+    </bean>
+    
+    <!-- 基础数据类型 -->
+    <bean id="string" class="java.lang.String">
+        <constructor-arg>
+            <value>I'm String</value>
+        </constructor-arg>
+    </bean>
+    <bean id="int" class="java.lang.Integer">
+        <constructor-arg>
+            <value>100</value>
+        </constructor-arg>
+    </bean>
+    <bean id="bool" class="java.lang.Boolean">
+        <constructor-arg>
+            <value>false</value>
+        </constructor-arg>
+    </bean>
+    <bean id="doub" class="java.lang.Double">
+        <constructor-arg>
+            <value>123.456</value>
+        </constructor-arg>
+    </bean>
+
+    <!-- 集合类型 -->
+    <bean id="list" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <value>value1</value>
+                <value>value2</value>
+                <value>value3</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="set" class="java.util.LinkedHashSet">
+        <constructor-arg>
+            <set>
+                <value>value1</value>
+                <value>value2</value>
+                <value>value3</value>
+                <value>value3</value>
+                <value>value3</value>
+            </set>
+        </constructor-arg>
+    </bean>
+    <bean id="map" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="key1" value="value1"></entry>
+                <entry key="key2" value="value2"></entry>
+                <entry key="key3" value="value3"></entry>
+                <entry key="key3" value="value4"></entry>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="props" class="java.util.Properties">
+        <constructor-arg>
+            <props>
+                <prop key="key1">value1</prop>
+                <prop key="key2">value2</prop>
+                <prop key="key3">value3</prop>
+                <prop key="key3">value4</prop>
+            </props>
+        </constructor-arg>
+    </bean>
+
+    <!-- 模拟控制层 -->
+    <bean id="userController" class="com.tz.spring.controller.UserController">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <!-- 模拟service层 -->
+    <bean id="userService" class="com.tz.spring.service.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <!-- 模拟Dao层 -->
+    <bean id="userDao" class="com.tz.spring.dao.UserDaoImpl"></bean>
+
+</beans>

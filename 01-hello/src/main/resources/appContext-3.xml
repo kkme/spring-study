@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd"
+           default-autowire="byName">
+
+    <!-- 集合类型 -->
+    <bean id="list" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <value>value1</value>
+                <value>value2</value>
+                <value>value3</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="set" class="java.util.HashSet">
+        <constructor-arg>
+            <set>
+                <value>value1</value>
+                <value>value2</value>
+                <value>value3</value>
+                <value>value3</value>
+                <value>value3</value>
+            </set>
+        </constructor-arg>
+    </bean>
+    <bean id="map" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="key1" value="value1"></entry>
+                <entry key="key2" value="value2"></entry>
+                <entry key="key3" value="value3"></entry>
+                <entry key="key3" value="value4"></entry>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="props" class="java.util.Properties">
+        <constructor-arg>
+            <props>
+                <prop key="key1">value1</prop>
+                <prop key="key2">value2</prop>
+                <prop key="key3">value3</prop>
+                <prop key="key3">value4</prop>
+            </props>
+        </constructor-arg>
+    </bean>
+
+</beans>

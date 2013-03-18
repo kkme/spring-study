@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd"
+           default-autowire="byName">
+
+    <!-- 基础数据类型 -->
+    <bean id="string" class="java.lang.String">
+        <constructor-arg>
+            <value>I'm String</value>
+        </constructor-arg>
+    </bean>
+    <bean id="int" class="java.lang.Integer">
+        <constructor-arg>
+            <value>100</value>
+        </constructor-arg>
+    </bean>
+    <bean id="bool" class="java.lang.Boolean">
+        <constructor-arg>
+            <value>false</value>
+        </constructor-arg>
+    </bean>
+    <bean id="doub" class="java.lang.Double">
+        <constructor-arg>
+            <value>123.456</value>
+        </constructor-arg>
+    </bean>
+
+</beans>
