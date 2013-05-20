@@ -24,7 +24,7 @@
     	<aop:aspect ref="myAroundAdvice">
 			<aop:around method="handle" 
 			            pointcut="execution(* com.tz.spring.service.*ServiceImpl.*(..))"/> 
-		</aop:aspect>
+		</aop:aspect>      k
 
         <!--
 		<aop:aspect ref="logAdvice">
