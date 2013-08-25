@@ -1,5 +1,6 @@
 package com.tz.spring.dao;
 
+import com.tz.spring.MyThreadLocal;
 import com.tz.spring.entity.Account;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,7 +13,8 @@ public class AccountDaoImpl implements AccountDao {
 	}
 	
 	private Session getSession(){
-		return sessionFactory.getCurrentSession();
+//		return sessionFactory.getCurrentSession();
+        return (Session)MyThreadLocal.get("session");
 	}
 	
 	@Override

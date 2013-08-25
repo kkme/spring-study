@@ -13,13 +13,13 @@
      default-autowire="byName">
 
 	<!-- 1. dataSource -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/spring"/>
-		<property name="username" value="root"/>
-		<property name="password" value="root"/>
-		<property name="initialSize" value="20"/>
-	</bean>
+	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">-->
+		<!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+		<!--<property name="url" value="jdbc:mysql://localhost:3306/spring"/>-->
+		<!--<property name="username" value="root"/>-->
+		<!--<property name="password" value="root"/>-->
+	<!--</bean>-->
+    <bean id="dataSource" class="com.tz.spring.MyDataSourceFactoryBean"/>
 	
 	<!-- 2.sessionFactory -->
 	<bean id="sessionFactory" 
@@ -57,26 +57,35 @@
 	<bean id="accountService" class="com.tz.spring.service.AccountServiceImpl">
 		<property name="accountDao" ref="accountDao"/>
 	</bean>
-	
+
+    <bean id="myAroundAdvice" class="com.tz.spring.MyAroundAdvice">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="myAroundAdvice">
+            <aop:around method="around" pointcut="execution(* com.tz.spring.service.AccountServiceImpl.transfer(..))"/>
+        </aop:aspect>
+    </aop:config>
+
 	<!-- 6.tx advice -->
-	<!-- spring 声明式事务将 TM 作为事务advice -->
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
+	<!--<tx:advice id="txAdvice">-->
+		<!--<tx:attributes>-->
 			<!-- 定义方法具有怎样的传播行为和隔离级别 -->
 			<!-- 在学习期间，所有切面设计的方法都用 同样的传播和隔离 -->
-			<tx:method name="*" propagation="REQUIRED" isolation="READ_COMMITTED"/>
+			<!--<tx:method name="*" propagation="REQUIRED" isolation="DEFAULT" read-only="false"/>-->
 			
 			<!-- 在实际项目开发，可能采取以下配置
 			<tx:method name="get*" readonly="true"/>提高查询效率 
 			<tx:method name="save*" propagation="REQUIRED" isolation="READ_COMMITTED"/>
 			<tx:method name="update*" propagation="SUPPORTED" isolation="READ_COMMITTED"/>
 			<tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED"/> -->
-		</tx:attributes>
-	</tx:advice>
+		<!--</tx:attributes>-->
+	<!--</tx:advice>-->
 
 	<!-- 7.配置AOP-->
-	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.tz.spring.service.AccountServiceImpl.*(..))"/>
-	</aop:config>	
+	<!--<aop:config>-->
+		<!--<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.tz.spring.service.AccountServiceImpl.*(..))"/>-->
+	<!--</aop:config>	-->
            
 </beans>

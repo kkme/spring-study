@@ -1,5 +1,6 @@
 package com.tz.spring.service;
 
+import com.tz.spring.MyThreadLocal;
 import com.tz.spring.dao.AccountDao;
 import com.tz.spring.entity.Account;
 
@@ -19,6 +20,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String transfer(long from, long to, double amount) {
+
+        MyThreadLocal.set("key1", "value1");
+        MyThreadLocal.set("key2", "value2");
+        MyThreadLocal.set("key3", "value3");
+        MyThreadLocal.set("key3", "value4");
+
         //转出账户是否存在
         Account fromAccount = accountDao.getById(from);
         if(fromAccount == null){

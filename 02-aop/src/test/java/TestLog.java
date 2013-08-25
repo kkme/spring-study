@@ -7,6 +7,10 @@ import com.tz.spring.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class TestLog {
 

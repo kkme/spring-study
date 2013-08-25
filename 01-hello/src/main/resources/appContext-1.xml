@@ -10,5 +10,7 @@
         <property name="name" value="jack"/>
         <property name="age" value="25"/>
     </bean>
+
+    <bean id="car" class="com.tz.spring.CarFactoryBean"/>
     
 </beans>
