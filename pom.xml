@@ -14,6 +14,8 @@
         <module>03-transaction</module>
         <module>04-annotation</module>
         <module>05-baseDao</module>
+        <module>06-jpa2</module>
+        <module>07-quartz</module>
     </modules>
 
     <properties>
