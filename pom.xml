@@ -16,6 +16,7 @@
         <module>05-baseDao</module>
         <module>06-jpa2</module>
         <module>07-quartz</module>
+        <module>08-mvc</module>
     </modules>
 
     <properties>
