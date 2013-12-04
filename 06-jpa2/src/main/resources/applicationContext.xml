@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context
+ 	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--spring annotation -->
+    <context:annotation-config/>
+    <!-- 指定需要扫描的包 -->
+    <context:component-scan base-package="com.mycompany.jpa.dao"/>
+    <context:component-scan base-package="com.mycompany.jpa.service"/>
+
+    <!-- 参数配置文件 -->
+    <context:property-placeholder location="classpath:/jdbc.properties"/>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!-- Configure a JPA vendor adapter -->
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <!--showSql-->
+        <property name="showSql" value="${jdbc.show_sql}"/>
+        <!--generate ddl-->
+        <property name="generateDdl" value="${jdbc.generate_ddl}"/>
+        <!--database dialect-->
+        <property name="databasePlatform" value="${jdbc.dialect}"/>
+    </bean>
+
+    <!--entityManagerFactory-->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <!-- config in persistence.xml-->
+        <property name="persistenceXmlLocation" value="classpath:persistence.xml"/>
+        <property name="jpaPropertyMap">
+          <map>
+            <entry key="hibernate.ejb.interceptor" value="com.mycompany.jpa.interceptor.EntityInterceptor"/>
+          </map>
+        </property>
+    </bean>
+
+    <!-- Setup transaction manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- Use Annotation Style Declarative Transaction -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
