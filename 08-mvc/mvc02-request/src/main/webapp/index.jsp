@@ -6,6 +6,12 @@
   <body>
     <h1>Index</h1>
     <hr/>
-    <a href="hello">点击发送请求给控制器</a>
+    <form method="post" action="/demo">
+        Name:<input type="text" name="name" value="Test Name">
+            <br/>
+        Password:<input type="text" name="password" value="Test Pwd">
+            <br/>
+            <input type="submit" value="提交">
+    </form>
   </body>
 </html>
