@@ -9,6 +9,7 @@ public class User {
 
     private String name;
     private String password;
+    private Pet pet;
 
     public User() {
     }
@@ -29,11 +30,20 @@ public class User {
         this.password = password;
     }
 
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", pet=" + pet +
                 '}';
     }
 }
