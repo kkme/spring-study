@@ -27,14 +27,21 @@ import java.util.UUID;
 public class HelloController {
 
         @RequestMapping("/test1")
-        public String test1(Model model, User user){
-            System.out.println(user);
-            model.addAttribute("user" , user);
-            return "result";
+        public String test1(Model model, @RequestParam String name, @RequestParam int age){
+            model.addAttribute("name" , name);
+            model.addAttribute("age" , age);
+            return "result1";
         }
 
         @RequestMapping("/test2")
-        public String test2(Model model, UserListTo userListTo){
+        public String test2(Model model, User user){
+            System.out.println(user);
+            model.addAttribute("user" , user);
+            return "result2";
+        }
+
+        @RequestMapping("/test3")
+        public String test3(Model model, UserListTo userListTo){
             System.out.println(userListTo);
             if(userListTo != null && userListTo.getUsers().size()>0){
                 for(User user : userListTo.getUsers()){
@@ -42,14 +49,14 @@ public class HelloController {
                 }
             }
             model.addAttribute("users" , userListTo.getUsers());
-            return "result2";
+            return "result3";
         }
 
-        @RequestMapping("/test3")
-        public String test3(Model model, @RequestParam("file") MultipartFile multipartFile
+        @RequestMapping("/test4")
+        public String test4(Model model, @RequestParam MultipartFile myFile
                     , HttpServletRequest request) throws IOException {
             //获得原来文件名(含后缀名)
-            String originalFilename = multipartFile.getOriginalFilename();
+            String originalFilename = myFile.getOriginalFilename();
             int pos = originalFilename.lastIndexOf(".");
             //原文件后缀名
             String suffix = originalFilename.substring(pos);
@@ -59,11 +66,11 @@ public class HelloController {
             //产生一个uuid随机文件名
             String uuid = UUID.randomUUID().toString();
             String fullPath = realPath + File.separator + uuid + suffix;
-            System.out.println("fullPath:"+fullPath);
-            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), new File(fullPath));
+            System.out.println("fullPath:" + fullPath);
+            FileUtils.copyInputStreamToFile(myFile.getInputStream(), new File(fullPath));
             model.addAttribute("originalFilename" , originalFilename);
             model.addAttribute("fullPath" , fullPath);
-            return "result3";
+            return "result4";
         }
 
 

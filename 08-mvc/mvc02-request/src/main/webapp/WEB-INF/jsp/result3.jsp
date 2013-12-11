@@ -4,7 +4,11 @@
     <body>
         <h1>Result 2</h1>
         <hr/>
-        <p>刚才提交的文件: ${originalFilename}</p>
-        <p>已保存至路径：: ${fullPath}</p>
+        <p>刚才提交的数据是:</p>
+        <c:forEach items="${users}" var="u">
+            <p>User:${u}</p>
+            <p>Name:${u.name}</p>
+            <p>Password:${u.password}</p>
+        </c:forEach>
     </body>
 </html>
